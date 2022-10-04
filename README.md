@@ -72,3 +72,8 @@ This will allow you to `git pull upstream master` in order to get updates. When 
 # Copyright
 
 © Ken Youens-Clark 2019-2020
+
+# Setup
+
+1. chmod +x src/entrypoint.sh 
+2. docker compose run -i --rm python_project bash

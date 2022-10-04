@@ -1,8 +1,20 @@
-FROM python:3.8.3-buster
-RUN apt-get -y update
-RUN apt-get install -y git vim emacs
+FROM python:3.9.6-slim
 
-WORKDIR /app
-RUN git clone https://github.com/kyclark/tiny_python_projects && python3 -m pip install -r /app/tiny_python_projects/requirements.txt
+ADD ./src/requirements.txt /src/
 
-CMD ["python3", "--version"]
+RUN sed -i "s/deb.debian.org/mirror.ps.kz/g" \
+    /etc/apt/sources.list \
+    && apt update \
+    && apt install -y apt-utils \
+# Upgrade pip
+    && pip install --upgrade pip \
+# Add project dependencies
+    && pip install \
+    --no-cache-dir -Ur /src/requirements.txt \
+# Remove build dependencies
+    && apt clean
+
+COPY ./src /src
+WORKDIR /src
+CMD ["./entrypoint.sh"]
+
