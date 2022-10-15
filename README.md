@@ -76,4 +76,4 @@ This will allow you to `git pull upstream master` in order to get updates. When 
 # Setup
 
 1. chmod +x src/entrypoint.sh 
-2. docker compose run -i --rm python_project bash
+2. docker compose run -i --rm tiny bash
